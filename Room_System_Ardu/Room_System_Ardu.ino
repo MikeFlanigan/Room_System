@@ -1,6 +1,6 @@
 #include <FastLED.h>
 
-#define LED_PIN     3
+#define LED_PIN     11
 #define NUM_LEDS    150
 #define BRIGHTNESS  64
 #define LED_TYPE    WS2811
@@ -41,27 +41,29 @@ void loop() {
   Lights_ON = not digitalRead(Lights_Pin);
   Flashing_Lights = not digitalRead(Flash_Pin);
   Brightness = analogRead(Brightness_Pot);
-//  if (Flashing_Lights) {
-//    digitalWrite(13, HIGH);   // turn the LED on (HIGH is the voltage level)
-//    delay(1000);              // wait for a second
-//    digitalWrite(13, LOW);    // turn the LED off by making the voltage LOW
-//    delay(1000);              // wait for a second
-//    Serial.print("Flash");
-//  }
-  if (Lights_ON) {
-//if (true){
+  Brightness = map(Brightness,0,1023,0,255);
+  //  if (Flashing_Lights) {
+  //    digitalWrite(13, HIGH);   // turn the LED on (HIGH is the voltage level)
+  //    delay(1000);              // wait for a second
+  //    digitalWrite(13, LOW);    // turn the LED off by making the voltage LOW
+  //    delay(1000);              // wait for a second
+  //    Serial.print("Flash");
+  //  }
+  //  if (Lights_ON) {
+  if (true) {
     digitalWrite(13, HIGH);   // turn the LED on (HIGH is the voltage level)
-//    delay(500);              // wait for a second
-//    digitalWrite(13, LOW);    // turn the LED off by making the voltage LOW
-//    delay(500);
-//    Serial.print("Light");
+    //    delay(500);              // wait for a second
+    //    digitalWrite(13, LOW);    // turn the LED off by making the voltage LOW
+    //    delay(500);
+    //    Serial.print("Light");
 
     ChangePalettePeriodically();
 
     static uint8_t startIndex = 0;
     startIndex = startIndex + 1; /* motion speed */
 
-    FillLEDsFromPaletteColors( startIndex);
+    FillLEDsFromPaletteColors(startIndex, (int) Brightness);
+    
 
     FastLED.show();
     FastLED.delay(1000 / UPDATES_PER_SECOND);
@@ -73,15 +75,15 @@ void loop() {
     //    Serial.print("OFF");
   }
   Serial.print(Flashing_Lights);
-  //  Serial.println(Brightness);
+  Serial.println(Brightness);
   Serial.println(Lights_ON);
 }
 
 
 
-void FillLEDsFromPaletteColors( uint8_t colorIndex)
+void FillLEDsFromPaletteColors( uint8_t colorIndex, uint8_t brightness)
 {
-  uint8_t brightness = 255;
+//    uint8_t brightness = 255;
 
   for ( int i = 0; i < NUM_LEDS; i++) {
     leds[i] = ColorFromPalette( currentPalette, colorIndex, brightness, currentBlending);
