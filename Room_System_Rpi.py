@@ -15,6 +15,8 @@ Play_Music = False
 Power_Speakers = False
 Music_Start_OneShot = False
 
+Change_Flag = False
+
 
 Alarm_Set_Btn = False
 
@@ -86,10 +88,7 @@ try:
         else:
             Play_Music = False
             Alarm_Lights_Flash = False
-
-        ## debugging
-        Play_Music = True
-	Lights_Pin = True        
+   
         ######### starting and stopping music subprocess ###################
         if Play_Music and not Music_Start_OneShot:
             Music_Start_OneShot = True
@@ -102,15 +101,17 @@ try:
 
 
         ####### debug testing and overrides ###########
-#	if Now.second - 30 <= 0:
- #           ii+=1
-  #          Alarm_Lights = False
-   #     else:
-    #        ii -= 1
-     #       Alarm_Lights_Flash = True
+	if Now.second - 30 <= 0:
+            ii+=1
+            Alarm_Lights = False
+        else:
+            ii -= 1
+            Alarm_Lights = True
+  
+##        Power_Speakers = True
+##	Alarm_Lights = True
+
             
-        Power_Speakers = True
-	Alarm_Lights = True
         ######## gpio pin controls ################################
         if Alarm_Lights: gpio.output(Lights_Pin, gpio.LOW)
         else: gpio.output(Lights_Pin, gpio.HIGH)
@@ -124,7 +125,13 @@ try:
 
         ### debug printing
 ##        print("Lights:",Alarm_Lights,"Flash:",Alarm_Lights_Flash,"Music:",Play_Music)
-
+        if not Change_Flag and Alarm_Lights:
+            print(Alarm_Lights)
+            Change_Flag = True
+        elif Change_Flag and not Alarm_Lights:
+            print(Alarm_Lights)
+            Change_Flag = False
+        
 
 
 
