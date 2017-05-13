@@ -102,7 +102,7 @@ try:
 
 
         ####### debug testing and overrides ###########
-        while ii =< 1000:
+        while ii <=1000:
             ii+=1
             Alarm_Lights = False
         while ii >= 0:
