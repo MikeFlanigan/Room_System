@@ -3,8 +3,8 @@ import timeit
 import subprocess
 import RPi.GPIO as gpio
 
-alarm_time_hour = 0 # 5 am default
-alarm_time_minute = 30
+alarm_time_hour = 7 # 5 am default
+alarm_time_minute = 10
 
 Alarm_Lights = False
 Alarm_Lights_Flash = False
