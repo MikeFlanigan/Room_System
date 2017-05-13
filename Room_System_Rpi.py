@@ -11,6 +11,7 @@ Alarm_Lights_Flash = False
 
 Audio_Enable = True
 Play_Music = False
+Power_Speakers = False
 Music_Start_OneShot = False
 
 
@@ -19,12 +20,14 @@ Alarm_Set_Btn = False
 
 Lights_Pin = 26 
 Flash_Pin = 19
+Speaker_Pwr_Pin = 17
 # _Pin = 13
 gpio.setmode(gpio.BCM) # sets pin reference scheme to gpio instead of pins
 ##gpio.setup(MPS_inp, gpio.IN) # N.O.
 ##gpio.setup(Start_btn, gpio.IN, gpio.PUD_UP) # N.C. with pull up resistor
 gpio.setup(Lights_Pin, gpio.OUT) # N.O.
 gpio.setup(Flash_Pin, gpio.OUT) # N.O.
+gpio.setup(Speaker_Pwr_Pin, gpio.OUT) # N.O.
 
 try:
     while True:
@@ -78,15 +81,19 @@ try:
 ##        Alarm_Lights_Flash = True
         if Play_Music and not Music_Start_OneShot:
             Music_Start_OneShot = True
+			Power_Speakers = True
             music = subprocess.Popen(['mpg123','/home/pi/Desktop/theintro.mp3'])
         elif not Play_Music and Music_Start_OneShot:
             music.kill()
             Music_Start_OneShot = False
+			Power_Speakers = False
         
         if Alarm_Lights: gpio.output(Lights_Pin, gpio.LOW)
         else: gpio.output(Lights_Pin, gpio.HIGH)
         if Alarm_Lights_Flash: gpio.output(Flash_Pin, gpio.LOW)
         else: gpio.output(Lights_Pin, gpio.HIGH)
+		if Power_Speakers: gpio.output(Speaker_Pwr_Pin, gpio.HIGH)
+		else: gpio.output(Speaker_Pwr_Pin, gpio.LOW)
         print("Lights:",Alarm_Lights,"Flash:",Alarm_Lights_Flash,"Music:",Play_Music)
 except KeyboardInterrupt: pass
 gpio.cleanup()
