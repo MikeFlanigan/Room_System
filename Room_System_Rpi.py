@@ -88,7 +88,16 @@ try:
         else:
             Play_Music = False
             Alarm_Lights_Flash = False
-   
+
+
+           ####### debug testing and overrides ###########
+	if Now.second - 30 <= 0:
+            Alarm_Lights = False
+            Play_Music = False
+        else:
+            Alarm_Lights = True
+            Play_Music = True
+
         ######### starting and stopping music subprocess ###################
         if Play_Music and not Music_Start_OneShot:
             Music_Start_OneShot = True
@@ -100,16 +109,7 @@ try:
             Power_Speakers = False
 
 
-        ####### debug testing and overrides ###########
-	if Now.second - 30 <= 0:
-            ii+=1
-            Alarm_Lights = False
-        else:
-            ii -= 1
-            Alarm_Lights = True
-  
-##        Power_Speakers = True
-##	Alarm_Lights = True
+
 
             
         ######## gpio pin controls ################################
