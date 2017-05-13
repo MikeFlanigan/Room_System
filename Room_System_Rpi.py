@@ -89,7 +89,7 @@ try:
 
         ## debugging
         Play_Music = True
-        
+	Lights_Pin = True        
         ######### starting and stopping music subprocess ###################
         if Play_Music and not Music_Start_OneShot:
             Music_Start_OneShot = True
@@ -102,17 +102,15 @@ try:
 
 
         ####### debug testing and overrides ###########
-        print("lights on")
-	while ii <=1000:
-            ii+=1
-            Alarm_Lights = False
-	print("lights off")
-        while ii >= 0:
-            ii -= 1
-            Alarm_Lights_Flash = True
+#	if Now.second - 30 <= 0:
+ #           ii+=1
+  #          Alarm_Lights = False
+   #     else:
+    #        ii -= 1
+     #       Alarm_Lights_Flash = True
             
         Power_Speakers = True
-
+	Alarm_Lights = True
         ######## gpio pin controls ################################
         if Alarm_Lights: gpio.output(Lights_Pin, gpio.LOW)
         else: gpio.output(Lights_Pin, gpio.HIGH)
