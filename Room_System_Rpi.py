@@ -80,20 +80,20 @@ try:
 ##        Alarm_Lights = True
 ##        Alarm_Lights_Flash = True
         if Play_Music and not Music_Start_OneShot:
-            Music_Start_OneShot = True
-			Power_Speakers = True
-            music = subprocess.Popen(['mpg123','/home/pi/Desktop/theintro.mp3'])
+		Music_Start_OneShot = True
+		Power_Speakers = True
+		music = subprocess.Popen(['mpg123','/home/pi/Desktop/theintro.mp3'])
         elif not Play_Music and Music_Start_OneShot:
-            music.kill()
-            Music_Start_OneShot = False
-			Power_Speakers = False
-        
+		music.kill()
+		Music_Start_OneShot = False
+		Power_Speakers = False
+        Power_Speakers = True
         if Alarm_Lights: gpio.output(Lights_Pin, gpio.LOW)
         else: gpio.output(Lights_Pin, gpio.HIGH)
         if Alarm_Lights_Flash: gpio.output(Flash_Pin, gpio.LOW)
         else: gpio.output(Lights_Pin, gpio.HIGH)
-		if Power_Speakers: gpio.output(Speaker_Pwr_Pin, gpio.HIGH)
-		else: gpio.output(Speaker_Pwr_Pin, gpio.LOW)
+	if Power_Speakers: gpio.output(Speaker_Pwr_Pin, gpio.HIGH)
+	else: gpio.output(Speaker_Pwr_Pin, gpio.LOW)
         print("Lights:",Alarm_Lights,"Flash:",Alarm_Lights_Flash,"Music:",Play_Music)
 except KeyboardInterrupt: pass
 gpio.cleanup()
