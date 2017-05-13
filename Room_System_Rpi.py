@@ -102,7 +102,7 @@ try:
         if Play_Music and not Music_Start_OneShot:
             Music_Start_OneShot = True
             Power_Speakers = True
-            music = subprocess.Popen(['mpg123','/home/pi/Desktop/theintro.mp3'])
+            music = subprocess.Popen(['mpg123','/home/pi/Desktop/theintro.mp3','--skip 100'])
         elif not Play_Music and Music_Start_OneShot:
             music.kill()
             Music_Start_OneShot = False
