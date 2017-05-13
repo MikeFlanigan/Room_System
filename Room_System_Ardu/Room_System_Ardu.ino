@@ -15,13 +15,31 @@ TBlendType    currentBlending;
 extern CRGBPalette16 myRedWhiteBluePalette;
 extern const TProgmemPalette16 myRedWhiteBluePalette_p PROGMEM;
 
-
+/////////Raspberry pi digital coms/////////////////////
+int Speaker_in_Pin = 12;
 int Lights_Pin = 9;
-int Flash_Pin = 10;
+int Flash_Pin = 8;
+//int unused_Pin = 7;
+//////////////////////////////
+/////////Outputs/////////////////////
+int Speaker_Power_Pin = 13;
+// LED pin defined above
+///////////////////////////////////
+///////// Phsyical inputs //////////////////
 int Brightness_Pot = A2;
+int Btn1_Pin = 2; // snooze
+int Btn2_Pin = 3; // pause play for now
+int Btn3_Pin = 4; // on off lights
+////////////////////////////////////////
+
+
 int Brightness = 0;
 bool Lights_ON = false;
 bool Flashing_Lights = false;
+bool Speaker_Power = false;
+bool Btn1_ON = false;
+bool Btn2_ON = false;
+bool Btn3_ON = false;
 
 void setup() {
   delay( 3000 ); // power-up safety delay
@@ -34,56 +52,74 @@ void setup() {
   Serial.begin(9600);
   pinMode(Lights_Pin, INPUT_PULLUP);
   pinMode(Flash_Pin, INPUT_PULLUP);
-  pinMode(13, OUTPUT);
+  pinMode(Speaker_in_Pin, INPUT_PULLUP);
+  pinMode(Speaker_Power_Pin, OUTPUT);
+
+  pinMode(Btn1_Pin, INPUT_PULLUP);
+  pinMode(Btn2_Pin, INPUT_PULLUP);
+  pinMode(Btn3_Pin, INPUT_PULLUP);
 }
 
 void loop() {
   Lights_ON = not digitalRead(Lights_Pin);
   Flashing_Lights = not digitalRead(Flash_Pin);
+  Speaker_Power = not digitalRead(Speaker_in_Pin);
   Brightness = analogRead(Brightness_Pot);
-  Brightness = map(Brightness,0,1023,0,255);
-  //  if (Flashing_Lights) {
-  //    digitalWrite(13, HIGH);   // turn the LED on (HIGH is the voltage level)
-  //    delay(1000);              // wait for a second
-  //    digitalWrite(13, LOW);    // turn the LED off by making the voltage LOW
-  //    delay(1000);              // wait for a second
-  //    Serial.print("Flash");
-  //  }
-  //  if (Lights_ON) {
-  if (true) {
-    digitalWrite(13, HIGH);   // turn the LED on (HIGH is the voltage level)
-    //    delay(500);              // wait for a second
+  Brightness = map(Brightness, 0, 1023, 0, 255);
+  Btn1_ON = not digitalRead(Btn1_Pin);
+  Btn2_ON = not digitalRead(Btn2_Pin);
+  Btn3_ON = not digitalRead(Btn3_Pin);
+
+
+
+  if (Speaker_Power) {
+    digitalWrite(Speaker_Power_Pin, HIGH);
+  }
+  else {
+    digitalWrite(Speaker_Power_Pin, LOW);
+  }
+
+  
+  if (Flashing_Lights) {
+    // nothing for now
+    //    digitalWrite(13, HIGH);   // turn the LED on (HIGH is the voltage level)
+    //    delay(1000);              // wait for a second
     //    digitalWrite(13, LOW);    // turn the LED off by making the voltage LOW
-    //    delay(500);
-    //    Serial.print("Light");
+    //    delay(1000);              // wait for a second
+    //    Serial.print("Flash");
+  }
+  else {
+    // nothing for now
+  }
 
+  
+  if (Lights_ON) {
     ChangePalettePeriodically();
-
     static uint8_t startIndex = 0;
     startIndex = startIndex + 1; /* motion speed */
-
     FillLEDsFromPaletteColors(startIndex, (int) Brightness);
-    
-
     FastLED.show();
     FastLED.delay(1000 / UPDATES_PER_SECOND);
   }
   else {
-    digitalWrite(13, LOW);
     fill_solid( currentPalette, 16, CRGB::Black);
     FastLED.show();
-    //    Serial.print("OFF");
   }
-  Serial.print(Flashing_Lights);
-  Serial.println(Brightness);
-  Serial.println(Lights_ON);
+
+
+  // debug printing
+  //  Serial.print(Flashing_Lights);
+  //  Serial.println(Brightness);
+  //  Serial.println(Lights_ON);
 }
 
 
 
+///////////////// LED CONTROL FUNCTIONS ////////////////////////
+
 void FillLEDsFromPaletteColors( uint8_t colorIndex, uint8_t brightness)
 {
-//    uint8_t brightness = 255;
+  //    uint8_t brightness = 255;
 
   for ( int i = 0; i < NUM_LEDS; i++) {
     leds[i] = ColorFromPalette( currentPalette, colorIndex, brightness, currentBlending);
