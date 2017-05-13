@@ -102,9 +102,11 @@ try:
 
 
         ####### debug testing and overrides ###########
-        while ii <=1000:
+        print("lights on")
+	while ii <=1000:
             ii+=1
             Alarm_Lights = False
+	print("lights off")
         while ii >= 0:
             ii -= 1
             Alarm_Lights_Flash = True
