@@ -3,13 +3,15 @@ import datetime
 
 Change_Flag = False
 
+Lights_Pin = 26 # com to arduino
+
 gpio.setmode(gpio.BCM) # sets pin reference scheme to gpio instead of pins
 
 
 gpio.setup(Lights_Pin, gpio.OUT) # N.O.
 
 
-Lights_Pin = 26 # com to arduino
+
 
 try:
     while True:
