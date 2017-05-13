@@ -22,7 +22,7 @@ int Flash_Pin = 8;
 //int unused_Pin = 7;
 //////////////////////////////
 /////////Outputs/////////////////////
-int Speaker_Power_Pin = 13;
+int Speaker_Power_Pin = A4;
 // LED pin defined above
 ///////////////////////////////////
 ///////// Phsyical inputs //////////////////
@@ -49,7 +49,7 @@ void setup() {
   currentPalette = RainbowColors_p;
   currentBlending = LINEARBLEND;
 
-  Serial.begin(9600);
+//  Serial.begin(9600);
   pinMode(Lights_Pin, INPUT_PULLUP);
   pinMode(Flash_Pin, INPUT_PULLUP);
   pinMode(Speaker_in_Pin, INPUT_PULLUP);
@@ -110,7 +110,9 @@ void loop() {
   // debug printing
   //  Serial.print(Flashing_Lights);
   //  Serial.println(Brightness);
-    Serial.println(digitalRead(Lights_Pin));
+//    Serial.print(digitalRead(Lights_Pin));
+//    Serial.println(digitalRead(Speaker_in_Pin));
+//    Serial.println(digitalRead(Lights_Pin));
 }
 
 
