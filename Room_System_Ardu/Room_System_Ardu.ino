@@ -110,7 +110,7 @@ void loop() {
   // debug printing
   //  Serial.print(Flashing_Lights);
   //  Serial.println(Brightness);
-  //  Serial.println(Lights_ON);
+    Serial.println(digitalRead(Lights_Pin));
 }
 
 

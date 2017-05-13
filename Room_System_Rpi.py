@@ -33,6 +33,8 @@ gpio.setup(Flash_Pin, gpio.OUT) # N.O.
 gpio.setup(Speaker_Pwr_Pin, gpio.OUT) # N.O.
 
 
+## temp counter vars
+ii = 0
 
 ######## main loop ##############
 try:
@@ -100,8 +102,13 @@ try:
 
 
         ####### debug testing and overrides ###########
-        Alarm_Lights = True
-##        Alarm_Lights_Flash = True
+        while ii < 1000:
+            ii+=1
+            Alarm_Lights = False
+        while ii > 0:
+            ii -= 1
+            Alarm_Lights_Flash = True
+            
         Power_Speakers = True
 
         ######## gpio pin controls ################################
