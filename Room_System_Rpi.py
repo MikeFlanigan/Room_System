@@ -116,7 +116,7 @@ try:
         if Alarm_Lights: gpio.output(Lights_Pin, gpio.LOW)
         else: gpio.output(Lights_Pin, gpio.HIGH)
         if Alarm_Lights_Flash: gpio.output(Flash_Pin, gpio.LOW)
-        else: gpio.output(Lights_Pin, gpio.HIGH)
+        else: gpio.output(Flash_Pin, gpio.HIGH)
         if Power_Speakers: gpio.output(Speaker_Pwr_Pin, gpio.LOW)
         else: gpio.output(Speaker_Pwr_Pin, gpio.HIGH)
 
