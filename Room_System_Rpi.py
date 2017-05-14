@@ -5,8 +5,8 @@ import subprocess
 import RPi.GPIO as gpio
 
 # default alarm time variables
-alarm_hour = 10+12 # X am default
-alarm_minute = 57
+alarm_hour = 7 # X am default
+alarm_minute = 15
 
 Alarm_Lights = False
 Alarm_Lights_Flash = False
@@ -122,7 +122,7 @@ try:
 ####            Alarm_Lights = True
 ####            Play_Music = True
 ##            Alarm_Lights_Flash = True
-
+#	Play_Music = True
         ######### starting and stopping music subprocess ###################
         if Play_Music and not Music_Start_OneShot:
             Music_Start_OneShot = True
