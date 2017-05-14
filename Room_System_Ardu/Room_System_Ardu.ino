@@ -79,7 +79,6 @@ void loop() {
     digitalWrite(Speaker_Power_Pin, LOW);
   }
 
-
   if (Flashing_Lights) {
     static uint8_t startIndex = 0;
     startIndex = startIndex + 1; /* motion speed */
@@ -131,6 +130,7 @@ void loop() {
   //  Serial.println(Lights_ON);
   //    Serial.println(digitalRead(Speaker_in_Pin));
   //    Serial.println(digitalRead(Lights_Pin));
+  Serial.println(digitalRead(Flash_Pin));
 }
 
 

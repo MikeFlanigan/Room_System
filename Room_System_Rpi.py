@@ -114,13 +114,14 @@ try:
 
 
            ####### debug testing and overrides ###########
-##	if Now.second - 30 <= 0:
-##            Alarm_Lights = False
-##            Play_Music = False
-##        else:
+	if Now.second - 30 <= 0:
+            Alarm_Lights = False
+            Play_Music = False
+            Alarm_Lights_Flash = False
+        else:
             Alarm_Lights = True
-            Play_Music = True
-	Alarm_Lights_Flash = True
+##            Play_Music = True
+            Alarm_Lights_Flash = True
 
         ######### starting and stopping music subprocess ###################
         if Play_Music and not Music_Start_OneShot:
@@ -160,11 +161,11 @@ try:
 
         ### debug printing
 ##        print("Lights:",Alarm_Lights,"Flash:",Alarm_Lights_Flash,"Music:",Play_Music)
-        if not Change_Flag and Alarm_Lights:
-            print(Alarm_Lights)
+        if not Change_Flag and Alarm_Lights_Flash:
+            print(Alarm_Lights_Flash)
             Change_Flag = True
-        elif Change_Flag and not Alarm_Lights:
-            print(Alarm_Lights)
+        elif Change_Flag and not Alarm_Lights_Flash:
+            print(Alarm_Lights_Flash)
             Change_Flag = False
         
 

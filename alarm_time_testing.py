@@ -21,13 +21,6 @@ while True:
     else: alarm = datetime.datetime(Now.year,Now.month,Now.day,alarm_hour,alarm_minute)
 
 
-    dif = alarm-Now
 
-    if dif.days >= 0 and dif.seconds/60 <= 15:
-        print('T - ', int(dif.seconds/60), np.mod(dif.seconds,60))
-    elif dif.days < 0 and abs(int(dif.seconds/60-24*60)) < 15:
-        print('T + ', abs(int(dif.seconds/60-24*60)), 60-np.mod(dif.seconds,60))
-    else:
-        print(dif.days,int(dif.seconds/60), np.mod(dif.seconds,60))
 
     
