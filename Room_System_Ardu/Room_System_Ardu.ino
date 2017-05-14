@@ -50,6 +50,8 @@ bool Btn1_ON = false;
 bool Btn2_ON = false;
 bool Btn3_ON = false;
 
+bool Snooze_Speakers = false;
+
 bool Reading_Lights = false;
 
 void setup() {
@@ -94,11 +96,17 @@ void loop() {
     Reading_Lights = false;
   }
 
-  if (Speaker_Power) {
+  if (Speaker_Power && Btn3_ON){
+    Snooze_Speakers = true;
+  }
+  if (Speaker_Power and not Snooze_Speakers) {
     digitalWrite(Speaker_Power_Pin, HIGH);
   }
   else {
     digitalWrite(Speaker_Power_Pin, LOW);
+  }
+  if (not Speaker_Power && Snooze_Speakers){
+    Snooze_Speakers = false;
   }
 
   // one shot to reset light fade timer
