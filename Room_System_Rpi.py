@@ -5,8 +5,8 @@ import subprocess
 import RPi.GPIO as gpio
 
 # default alarm time variables
-alarm_hour = 7 # X am default
-alarm_minute = 10
+alarm_hour = 9+12 # X am default
+alarm_minute = 47
 
 Alarm_Lights = False
 Alarm_Lights_Flash = False
@@ -53,7 +53,7 @@ try:
         ## update alarm each day
         if Now.hour >= 11:
             try:
-                alarm = datetime.datetime(Now.year,Now.month,Now.day+1,alarm_hour,alarm_minute)
+##                alarm = datetime.datetime(Now.year,Now.month,Now.day+1,alarm_hour,alarm_minute)
                 alarm = datetime.datetime(Now.year,Now.month,Now.day,alarm_hour,alarm_minute)
             except ValueError:
                 try:
@@ -114,14 +114,14 @@ try:
 
 
            ####### debug testing and overrides ###########
-	if Now.second - 30 <= 0:
-            Alarm_Lights = False
-            Play_Music = False
-            Alarm_Lights_Flash = False
-        else:
-##            Alarm_Lights = True
-##            Play_Music = True
-            Alarm_Lights_Flash = True
+##	if Now.second - 30 <= 0:
+##            Alarm_Lights = False
+##            Play_Music = False
+##            Alarm_Lights_Flash = False
+##        else:
+####            Alarm_Lights = True
+####            Play_Music = True
+##            Alarm_Lights_Flash = True
 
         ######### starting and stopping music subprocess ###################
         if Play_Music and not Music_Start_OneShot:
@@ -161,12 +161,12 @@ try:
 
         ### debug printing
 ##        print("Lights:",Alarm_Lights,"Flash:",Alarm_Lights_Flash,"Music:",Play_Music)
-        if not Change_Flag and Alarm_Lights_Flash:
-            print(Alarm_Lights_Flash)
-            Change_Flag = True
-        elif Change_Flag and not Alarm_Lights_Flash:
-            print(Alarm_Lights_Flash)
-            Change_Flag = False
+##        if not Change_Flag and Alarm_Lights_Flash:
+##            print(Alarm_Lights_Flash)
+##            Change_Flag = True
+##        elif Change_Flag and not Alarm_Lights_Flash:
+##            print(Alarm_Lights_Flash)
+##            Change_Flag = False
         
 
 
