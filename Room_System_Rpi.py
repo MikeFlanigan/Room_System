@@ -1,3 +1,4 @@
+import numpy as np
 import datetime
 import timeit
 import subprocess
@@ -19,6 +20,12 @@ Change_Flag = False
 
 
 Alarm_Set_Btn = False
+
+
+## music files and info
+music_files = ['/home/pi/Desktop/theintro.mp3', '/home/pi/Desktop/LifeCycles.mp3']
+music_file_len = [4600, 103000] # approximate number of frames in each audio file
+
 
 ######## pin definitions ########
 Lights_Pin = 26 # com to arduino
@@ -102,7 +109,18 @@ try:
         if Play_Music and not Music_Start_OneShot:
             Music_Start_OneShot = True
             Power_Speakers = True
-            music = subprocess.Popen(['mpg123','/home/pi/Desktop/theintro.mp3','--skip 100'])
+            file_num = np.random.randint(0,2)
+            if file_num == 0: # the intro
+            	skip = '-k 1'
+            else:
+		if np.random.randint(0,2) == 0:
+                	skip = '-k 1'
+                else:
+			# below means start position will be randomly between t+5 and t-5 on the music file
+            		frame = int(np.random.rand(1)[0]*(music_file_len[file_num]-30000)+15000) 	
+			skip = '-k ' + str(frame) 
+            print(music_files[file_num], 'start frame:',skip)
+            music = subprocess.Popen(['mpg123',skip,music_files[file_num]])
         elif not Play_Music and Music_Start_OneShot:
             music.kill()
             Music_Start_OneShot = False
