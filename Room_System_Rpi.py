@@ -5,8 +5,8 @@ import subprocess
 import RPi.GPIO as gpio
 
 # default alarm time variables
-alarm_hour = 9+12 # X am default
-alarm_minute = 47
+alarm_hour = 10+12 # X am default
+alarm_minute = 57
 
 Alarm_Lights = False
 Alarm_Lights_Flash = False
