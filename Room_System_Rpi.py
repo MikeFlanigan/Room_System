@@ -119,7 +119,7 @@ try:
             Play_Music = False
             Alarm_Lights_Flash = False
         else:
-            Alarm_Lights = True
+##            Alarm_Lights = True
 ##            Play_Music = True
             Alarm_Lights_Flash = True
 

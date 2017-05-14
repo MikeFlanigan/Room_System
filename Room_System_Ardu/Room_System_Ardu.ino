@@ -18,8 +18,8 @@ extern const TProgmemPalette16 myRedWhiteBluePalette_p PROGMEM;
 /////////Raspberry pi digital coms/////////////////////
 int Speaker_in_Pin = 12;
 int Lights_Pin = 9;
-int Flash_Pin = 8;
-//int unused_Pin = 7;
+//int unused_Pin = 8;
+int Flash_Pin = 7;
 //////////////////////////////
 /////////Outputs/////////////////////
 int Speaker_Power_Pin = A4;
