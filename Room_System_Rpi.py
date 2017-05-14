@@ -5,8 +5,8 @@ import subprocess
 import RPi.GPIO as gpio
 
 # default alarm time variables
-alarm_time_hour = 7 # X am default
-alarm_time_minute = 10
+alarm_hour = 7 # X am default
+alarm_minute = 10
 
 Alarm_Lights = False
 Alarm_Lights_Flash = False
@@ -54,7 +54,7 @@ try:
         if Now.hour >= 11:
             try:
                 alarm = datetime.datetime(Now.year,Now.month,Now.day+1,alarm_hour,alarm_minute)
-##                alarm = datetime.datetime(Now.year,Now.month,Now.day,alarm_hour,alarm_minute)
+                alarm = datetime.datetime(Now.year,Now.month,Now.day,alarm_hour,alarm_minute)
             except ValueError:
                 try:
                     alarm = datetime.datetime(Now.year,Now.month+1,1,alarm_hour,alarm_minute)
@@ -118,8 +118,9 @@ try:
 ##            Alarm_Lights = False
 ##            Play_Music = False
 ##        else:
-##            Alarm_Lights = True
-##            Play_Music = True
+            Alarm_Lights = True
+            Play_Music = True
+	Alarm_Lights_Flash = True
 
         ######### starting and stopping music subprocess ###################
         if Play_Music and not Music_Start_OneShot:
