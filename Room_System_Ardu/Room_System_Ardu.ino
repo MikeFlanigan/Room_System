@@ -72,7 +72,7 @@ void setup() {
 }
 
 void loop() {
-  Now = (int) millis() / 1000; // everything is done in seconds
+  Now = millis() / 1000; // everything is done in seconds
 
   Lights_ON = not digitalRead(Lights_Pin);
   Flashing_Lights = not digitalRead(Flash_Pin);
@@ -123,15 +123,15 @@ void loop() {
     FastLED.delay(1000 / UPDATES_PER_SECOND);
   }
   else if (Lights_ON) {
-    if ((Now - Start) > fade_time) {
-      Brightness = 255;
-    }
-    else if ((Now - Start > 0) && (Now - Start < fade_time)) {
-      Brightness = (int) (Now - Start) / fade_time;
-    }
-    else {
-      Brightness = 255;
-    }
+//    if ((Now - Start) > fade_time) {
+//      Brightness = 255;
+//    }
+//    else if ((Now - Start > 0) && (Now - Start < fade_time)) {
+//      Brightness = (int) (Now - Start) / fade_time;
+//    }
+//    else {
+//      Brightness = 255;
+//    }
 
     static uint8_t startIndex = 0;
     startIndex = startIndex + 1; /* motion speed */
@@ -149,24 +149,24 @@ void loop() {
     FastLED.delay(1000 / UPDATES_PER_SECOND);
   }
   else if (Reading_Lights) {
-    if ((Now - Reading_Start > Reading_duration) && (Reading_Fade_Start == 0)) {
-      Reading_Fade_Start = Now;
-      Serial.print("Start fade");
-    }
-    else if (Now - Reading_Start < Reading_duration) {
-      Serial.print(Now - Reading_Start);
-      Reading_Fade_Start = 0;
-    }
-    if (Reading_Fade_Start > 0) {
-      Serial.print(Now - Reading_Fade_Start);
-      Brightness = (int) ((1-((Now - Reading_Fade_Start) / fade_time)) * 255);
-    }
-    if (Now - Reading_Fade_Start >= fade_time) {
-      Serial.println("Lights off");
-      Reading_Lights = false;
-    }
-    Serial.print("Reading");
-    Serial.println(Brightness);
+//    if ((Now - Reading_Start > Reading_duration) && (Reading_Fade_Start == 0)) {
+//      Reading_Fade_Start = Now;
+//      Serial.print("Start fade");
+//    }
+//    else if (Now - Reading_Start < Reading_duration) {
+//      Serial.print(Now - Reading_Start);
+//      Reading_Fade_Start = 0;
+//    }
+//    if (Reading_Fade_Start > 0) {
+//      Serial.print(Now - Reading_Fade_Start);
+//      Brightness = (int) ((1-((Now - Reading_Fade_Start) / fade_time)) * 255);
+//    }
+//    if (Now - Reading_Fade_Start >= fade_time) {
+//      Serial.println("Lights off");
+//      Reading_Lights = false;
+//    }
+//    Serial.print("Reading");
+//    Serial.println(Brightness);
     static uint8_t startIndex = 0;
     startIndex = startIndex + 1; /* motion speed */
     currentPalette = LavaColors_p;
