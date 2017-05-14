@@ -49,7 +49,7 @@ void setup() {
   currentPalette = RainbowColors_p;
   currentBlending = LINEARBLEND;
 
-//  Serial.begin(9600);
+  Serial.begin(9600);
   pinMode(Lights_Pin, INPUT_PULLUP);
   pinMode(Flash_Pin, INPUT_PULLUP);
   pinMode(Speaker_in_Pin, INPUT_PULLUP);
@@ -79,40 +79,58 @@ void loop() {
     digitalWrite(Speaker_Power_Pin, LOW);
   }
 
-  
-  if (Flashing_Lights) {
-    // nothing for now
-    //    digitalWrite(13, HIGH);   // turn the LED on (HIGH is the voltage level)
-    //    delay(1000);              // wait for a second
-    //    digitalWrite(13, LOW);    // turn the LED off by making the voltage LOW
-    //    delay(1000);              // wait for a second
-    //    Serial.print("Flash");
-  }
-  else {
-    // nothing for now
-  }
 
-  
-  if (Lights_ON) {
-    ChangePalettePeriodically();
+  if (Flashing_Lights) {
     static uint8_t startIndex = 0;
     startIndex = startIndex + 1; /* motion speed */
+    SetupBlackAndWhiteStripedPalette();
+    currentBlending = LINEARBLEND;
     FillLEDsFromPaletteColors(startIndex, (int) Brightness);
     FastLED.show();
     FastLED.delay(1000 / UPDATES_PER_SECOND);
   }
-  else {
-    fill_solid( currentPalette, 16, CRGB::Black);
-    FastLED.show();
-  }
+  else if (Lights_ON) {
+    //  if (true) {
+    //    ChangePalettePeriodically();
+    //    static uint8_t startIndex = 0;
+    //    startIndex = startIndex + 1; /* motion speed */
+    //    FillLEDsFromPaletteColors(startIndex, (int) Brightness);
+    //    FastLED.show();
+    //    FastLED.delay(1000 / UPDATES_PER_SECOND);
 
+    static uint8_t startIndex = 0;
+    startIndex = startIndex + 1; /* motion speed */
+    //    currentPalette = LavaColors_p;
+    //    currentPalette = CloudColors_p;
+    //    currentPalette = ForestColors_p;
+    currentPalette = OceanColors_p;
+    FillLEDsFromPaletteColors(startIndex, (int) Brightness);
+
+    //    for ( int i = 0; i < NUM_LEDS; i++) {
+    //      leds[i] = ColorFromPalette(LavaColors_p, startIndex, 0, currentBlending);
+    //      startIndex += 3;
+    //    }
+    FastLED.show();
+    FastLED.delay(1000 / UPDATES_PER_SECOND);
+  }
+  else {
+    static uint8_t startIndex = 0;
+    startIndex = startIndex + 1; /* motion speed */
+    fill_solid( currentPalette, 16, CRGB::Black);
+    for ( int i = 0; i < NUM_LEDS; i++) {
+      leds[i] = ColorFromPalette( currentPalette, startIndex, 0, currentBlending);
+      startIndex += 3;
+    }
+    FastLED.show();
+    FastLED.delay(1000 / UPDATES_PER_SECOND);
+  }
 
   // debug printing
   //  Serial.print(Flashing_Lights);
   //  Serial.println(Brightness);
-//    Serial.print(digitalRead(Lights_Pin));
-//    Serial.println(digitalRead(Speaker_in_Pin));
-//    Serial.println(digitalRead(Lights_Pin));
+  //  Serial.println(Lights_ON);
+  //    Serial.println(digitalRead(Speaker_in_Pin));
+  //    Serial.println(digitalRead(Lights_Pin));
 }
 
 

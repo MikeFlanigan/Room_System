@@ -49,7 +49,37 @@ ii = 0
 try:
     while True:
         Now = datetime.datetime.now() # update time variable
+
+        ## update alarm each day
+        if Now.hour >= 11:
+            try:
+                alarm = datetime.datetime(Now.year,Now.month,Now.day+1,alarm_hour,alarm_minute)
+##                alarm = datetime.datetime(Now.year,Now.month,Now.day,alarm_hour,alarm_minute)
+            except ValueError:
+                try:
+                    alarm = datetime.datetime(Now.year,Now.month+1,1,alarm_hour,alarm_minute)
+                except ValueError:
+                    alarm = datetime.datetime(Now.year+1,1,1,alarm_hour,alarm_minute)
+        else: alarm = datetime.datetime(Now.year,Now.month,Now.day,alarm_hour,alarm_minute)
+
+        ########## alarm activation
+        Alarm_Lights = False
+        Play_Music = False
+        Alarm_Lights_Flash = False
         
+        alm_delt = alarm-Now # time till alarm
+        if (alm_delt.days >= 0 and alm_delt.seconds/60 <= 3) or (alm_delt.days < 0 and abs(int(alm_delt.seconds/60-24*60)) < 5): # T - 3 to T + 5
+            Alarm_Lights = True
+            Play_Music = True
+        elif alm_delt.days >= 0 and alm_delt.seconds/60 <= 15: # T - 15
+            Alarm_Lights = True
+        elif alm_delt.days < 0 and abs(int(alm_delt.seconds/60-24*60)) < 15: # T + 5-15
+            Alarm_Lights = True
+            Play_Music = True
+            Alarm_Lights_Flash = True
+        ############################
+
+
         ######### alarm button
         # if alarm set button high for
 ##        alarm_set_time = timeit.default_timer() # begin timer
@@ -81,29 +111,15 @@ try:
         # if t+ 5 then ''''
 
 
-        ## alarm time T - 5 minutes, two if cases account for roll over on hours
-        if Now.hour == alarm_time_hour - 1 and Now.minute >= 55 and alarm_time_minute == 0:
-            Alarm_Lights = True
-        elif Now.hour == alarm_time_hour and Now.minute >= alarm_time_minute-5 and Now.minute<=alarm_time_minute+5:
-            Alarm_Lights = True
-        else: Alarm_Lights = False 
-            
-        ## alarm time T + 5, 
-        if Now.hour == alarm_time_hour and Now.minute >= alarm_time_minute and Now.minute <= alarm_time_minute+5:
-            Alarm_Lights_Flash = True
-            Play_Music = True
-        else:
-            Play_Music = False
-            Alarm_Lights_Flash = False
 
 
            ####### debug testing and overrides ###########
-	if Now.second - 30 <= 0:
-            Alarm_Lights = False
-            Play_Music = False
-        else:
-            Alarm_Lights = True
-            Play_Music = True
+##	if Now.second - 30 <= 0:
+##            Alarm_Lights = False
+##            Play_Music = False
+##        else:
+##            Alarm_Lights = True
+##            Play_Music = True
 
         ######### starting and stopping music subprocess ###################
         if Play_Music and not Music_Start_OneShot:
