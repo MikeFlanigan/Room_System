@@ -4,9 +4,11 @@ import timeit
 import subprocess
 import RPi.GPIO as gpio
 
+print("Program initialized!")
+
 # default alarm time variables
 alarm_hour = 7 # X am default
-alarm_minute = 15
+alarm_minute = 0
 
 Alarm_Lights = False
 Alarm_Lights_Flash = False
